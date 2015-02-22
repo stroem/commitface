@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# brew install imagesnap
+# brew install wget
+
+commit_id=`git rev-parse HEAD`
+file="/tmp/$commit_id.png"
+
+imagesnap -q -w 1 $file
+sips -Z 480 $file
+url=`curl -sT $file chunk.io`
+echo "![]($url)" >> $1
